@@ -70,3 +70,41 @@
 </html>
 
 <!-- vue 스크립트 플러그인 임포트 -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            arr: [1, 2, 3, 4, 5]
+        },
+        methods: {     // 이벤트 핸들러 
+            change1: function (event) {
+                console.log("change1");
+                // (1) [100, 2, 3, 4, 5]    <== 방법1을 적용
+                // Vue.set( 변수명, 방번호, 바꿀 값)
+                Vue.set(this.$data.arr, 0, 100);   // 나의 data....   this.$data.arr 
+            },
+            change2: function (event) {
+                console.log("change2");
+                // (2) [100, 300, 3, 4, 5]  <== 방법2을 적용
+                // $.set 사용 방법... 
+                // Vue.set( 변수명, 방번호, 바꿀 값)
+                this.$set(this.$data.arr, 1, 300);
+            },
+            change3: function (event) {
+                console.log("change3");
+                // (3) [500, 3, 4, 5]       <== 방법3을 적용
+                this.arr.splice(0, 2, 500);      // 500, 300, 3, 4, 5     ->  (0, 1, 500)   0, 2, 500 수정하니 2자리까지 삭제. 
+            },
+            change4: function (event) {
+                console.log("change4");
+                // (4) [500, 3, 4, 5, 70]   <== 방법4을 적용
+                Vue.set(this.$data.arr, this.$data.arr.length, 70);
+
+                //  ...this.arr ===>   500, 3, 4, 5
+                //var arr_copy=[...this.arr,70];     리엑트 
+            }
+        }
+    })
+
+</script>

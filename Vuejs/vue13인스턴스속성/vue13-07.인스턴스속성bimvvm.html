@@ -35,3 +35,28 @@
 </html>
 
 <!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el: "#my",
+        data: {
+            message: "change message at mounted!!!",
+        },
+        methods: {
+            doClick: function (event) {
+                console.log("doClick");
+                this.$data.message = "change message when a button clicked!!!"
+            },
+        }
+    });
+
+
+    // data 값을 바꿀때, 
+    //  1.  " = "  하는 경우
+    //       string, number, Boolean
+    //  2.  Vue.set을 사용하 경우
+    //       배열, 객체.
+
+    // Vue.set( 변수명, 방번호, 바꿀 값)
+    // Vue.set(this.$data.arr, 0, 100);   // 나의 data....   this.$data.arr 
+</script>

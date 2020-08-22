@@ -49,3 +49,36 @@
 </html>
 
 <!-- vue 스크립트 플러그인 임포트 -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    // 같은 데이터를 공유할수 있다. 실제 쓰는 방법은 아니다.!!!  
+    var model = {
+        message: "Hello, Vue.js",
+    }
+    new Vue({
+        el: "#app",
+        data: model
+    });
+
+    new Vue({
+        el: "#app2",
+        data: model
+    })
+
+
+    /*var vm1 = new Vue({
+        el: "#app",
+        data: {
+            message: "Hello"
+        }
+    });
+
+    var vm2 = new Vue({
+        el: "#app2",
+        data: {
+            message: "Vue.js"
+        }
+    })
+    */
+
+</script>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
     <!-- CSS import -->
     <link rel="stylesheet" href="../css/reset.css">
 </head>
+
 <body>
     <pre>
 
@@ -22,12 +24,34 @@
     </pre>
     <hr>
 
+    <!--
     <div id="app">
         {{ message }}
         <h2 class="text-primary m-5">{{name}}</h2>
+    </div>-->
+
+    <div id="app">
+        <h2 class="text-primary m-5">
+            {{ message }} {{name}}
+            <!-- 인스턴스는 하나를 사용 적용한다. data 안에 message, name  각각 지정.  -->
+        </h2>
     </div>
+
 </body>
 
 </html>
 
 <!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {
+            message: "Hello",
+            name: "Vue!!!"
+        }
+    });
+
+
+
+</script>
