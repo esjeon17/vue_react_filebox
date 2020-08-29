@@ -29,11 +29,45 @@
     <hr>
     <div id="app2">
         <div>{{num}}</div>
-        <button v-on:click="clickBtn(10)">클릭</button>    <== 실습
-    </div>
+        <button v-on:click="clickBtn(10)">클릭</button>
+        <== 실습 </div>
 
 </body>
 
 </html>
 
 <!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el: "#app1",
+        data: {
+            num: 0,      // 문자열 "",  숫자는 기본 숫자 입력. 
+        },
+        template: null,
+        methods: {
+            clickBtn: function (event) {
+                console.log("num");     //  태그 정보 출력 
+                this.$data.num = this.$data.num + 1;
+            },
+        },
+        components: null,
+        watch: {},
+    });
+
+    new Vue({
+        el: "#app2",
+        data: {
+            num: 0,
+        },
+        template: null,
+        methods: {
+            clickBtn: function (event) {
+                console.log(event);     //  10
+                this.$data.num = this.$data.num + event;
+            },
+        },
+        components: null,
+        watch: {},
+    });
+</script>

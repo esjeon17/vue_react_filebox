@@ -39,10 +39,47 @@
                 </tr>
             </tbody>
         </table>
+        <div style="text-align:right;">
+            <button v-on:click="clickAddRow">테이블 행 추가</button>
+        </div>
     </div>
+
 
 </body>
 
 </html>
 
 <!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    /* options: [
+            { text: 'One', value: 'A' },
+            { text: 'Two', value: 'B' },
+            { text: 'Three', value: 'C' }
+        ],
+    */
+    new Vue({
+        el: "#app",
+        data: {
+            contacts: [
+                { name: '설현', tel: '010-3456-8200', address: '서현 주소' },
+                { name: '혜리', tel: '010-3456-8299', address: '서리 주소' },
+                { name: '하니', tel: '010-3456-8289', address: '서니 주소' },
+            ],
+        },
+        template: null,
+        methods: {
+            clickAddRow: function (event) {
+                console.log("clickAddRow");
+                var a = { name: '하니2', tel: '010-3456-8289', address: '서니2 주소' };
+                Vue.set(this.$data.contacts, this.$data.contacts.length, a);
+
+                // Vue.set( 변수명, 방번호, 바꿀 값)
+                //this.$set(this.$data.arr, 1, 300);
+            },
+        },
+        components: null,
+        watch: {},
+    });
+
+</script>

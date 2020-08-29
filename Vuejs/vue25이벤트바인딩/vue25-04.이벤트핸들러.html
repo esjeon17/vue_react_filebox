@@ -7,11 +7,8 @@
 </head>
 
 <body>
-    <input type="button" 
-    value="이벤트 핸들러 작성" 
-    onclick="btn_onclick" 
-    onmouseover="btn_onmouseover(this)"
-    onmouseout="btn_onmouseout(window.event, '123', 'abc')" onmouseup="btn_onmouseup(this, '123', 'abc')" />
+    <input type="button" value="이벤트 핸들러 작성" onclick="btn_onclick" onmouseover="btn_onmouseover(this)"
+        onmouseout="btn_onmouseout(window.event, '123', 'abc')" onmouseup="btn_onmouseup(this, '123', 'abc')" />
     <hr />
 
     <input id="btn" type="button" value='이벤트 핸들러 작성'>
@@ -22,4 +19,19 @@
 </body>
 
 </html>
-
+
+<script>
+    function btn_onclick(params) {
+        console.log("btn_onclick", params);
+    }
+    function btn_onmouseover(params) {
+        console.log("btn_onmouseover", params);
+    }
+    function btn_onmouseout(params, val1, val2) {
+        console.log("btn_onmouseout", params, val1, val2);
+    }
+    function btn_onmouseup(params, val1, val2) {
+        console.log("btn_onmouseup", params, val1, val2);
+    }
+
+</script>

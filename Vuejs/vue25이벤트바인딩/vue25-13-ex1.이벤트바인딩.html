@@ -72,9 +72,12 @@
         박스에 mouseout  이벤트를 핸들러를 작성하시오.
         </pre>
 
-        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown"  v-on:mouseup="spanmouseup" v-on:mouseout="spanmouseout"></span>
-        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown"  v-on:mouseup="spanmouseup" v-on:mouseout="spanmouseout"></span>
-        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown"  v-on:mouseup="spanmouseup" v-on:mouseout="spanmouseout"></span>
+        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown" v-on:mouseup="spanmouseup"
+            v-on:mouseout="spanmouseout"></span>
+        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown" v-on:mouseup="spanmouseup"
+            v-on:mouseout="spanmouseout"></span>
+        <span v-on:mouseover="spanmouseover" v-on:mousedown="spanmousedown" v-on:mouseup="spanmouseup"
+            v-on:mouseout="spanmouseout"></span>
         <hr>
 
         <pre>
@@ -98,3 +101,45 @@ select 에 change 이벤트 핸들러를 작성하시오.
 </html>
 
 <!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el: "#app",
+        data: {},
+        template: null,
+        methods: {
+            imageclick: function (event) {
+                console.log(event.target);
+                event.stopPropagation();
+                event.preventDefault();
+            },
+            imageover: function (event) {
+                console.log(event.target);
+            },
+            imageout: function (event) {
+                console.log(event.target);
+            },
+            spanmouseover: function (event) {
+                console.log(event.target);
+            },
+            spanmousedown: function (event) {
+                console.log(event.target);
+            },
+            spanmouseup: function (event) {
+                console.log(event.target);
+            },
+            spanmouseout: function (event) {
+                console.log(event.target);
+            },
+            selectchange: function (event) {
+                console.log(event.target);
+            },
+        },
+        components: null,
+        watch: {},
+    });
+
+    /*   this.$data.num = this.$data.num + event;   */
+
+
+</script>
