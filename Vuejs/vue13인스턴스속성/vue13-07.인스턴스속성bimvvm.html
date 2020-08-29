@@ -37,7 +37,7 @@
 <!-- vue 스크립트 플러그인 임포트   -->
 <script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
 <script>
-    new Vue({
+    var vm = new Vue({
         el: "#my",
         data: {
             message: "change message at mounted!!!",
@@ -47,6 +47,9 @@
                 console.log("doClick");
                 this.$data.message = "change message when a button clicked!!!"
             },
+        },
+        mounted: function (e) {
+            this.$data.message = "change message at mounted!!!"
         }
     });
 
@@ -59,4 +62,15 @@
 
     // Vue.set( 변수명, 방번호, 바꿀 값)
     // Vue.set(this.$data.arr, 0, 100);   // 나의 data....   this.$data.arr 
+
+    window.setTimeout(function () {
+        vm.$data.message = "Change message after 3 seconds!!!";
+        // this.$data.message = "Change message after 3 seconds!!!";
+    }, 3000);    // 3000ms = 3s
+
+    window.setTimeout(function () {
+        vm.$data.message = "Change message after 5 seconds!!!";
+        // this.$data.message = "Change message after 5 seconds!!!";
+    }, 5000);    // 5000ms = 5s
+
 </script>
