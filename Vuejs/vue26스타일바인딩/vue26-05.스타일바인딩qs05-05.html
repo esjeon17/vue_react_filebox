@@ -21,12 +21,12 @@
 
         single style binding:
         new Vue({
-            data : {
-                baseStyles: {
-                    fontWeight:'800',
-                    color: 'red'
-                },
-            },
+        data : {
+        baseStyles: {
+        fontWeight:'800',
+        color: 'red'
+        },
+        },
         });
         <p v-bind:style="baseStyles">
             baseStyles and overrideStyles
@@ -34,15 +34,15 @@
 
         multi style binding:
         new Vue({
-            data : {
-                baseStyles: {
-                    fontWeight:'800',
-                    color: 'red'
-                },
-                overrideStyles: {
-                    color:'blue'
-                },
-            },
+        data : {
+        baseStyles: {
+        fontWeight:'800',
+        color: 'red'
+        },
+        overrideStyles: {
+        color:'blue'
+        },
+        },
         });
         <p v-bind:style="[baseStyles, overrideStyles]">
             baseStyles and overrideStyles
@@ -56,8 +56,8 @@
     </div>
     <div id="example2">
         도전2. Vue.js 를 사용한 style multi 바인딩 구현. v-bind:style에 배열 사용<br>
-		
-		<pre>
+
+        <pre>
             myColor {                
                 background-color: aqua;
                 color: purple;
@@ -112,3 +112,79 @@
 </html>
 
 <!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el: "#example1",
+        data: {
+            myColor: {
+                backgroundColor: "aqua",
+                color: "purple",
+            }
+        },
+        template: null,
+        methods: null,
+        components: null,
+        computed: null,
+        watch: null,
+    }),
+        new Vue({
+            el: "#example2",
+            data: {
+                myColor: {
+                    backgroundColor: "aqua",
+                    color: "purple",
+                },
+                myLayout: {
+                    width: "150px",
+                    height: "80px",
+                    textAlign: "center",
+                }
+            },
+            template: null,
+            methods: null,
+            components: null,
+            computed: null,
+            watch: null,
+        }),
+        new Vue({
+            el: "#example3",
+            data: {
+                /*
+                 .set1 {
+                    background-color: aqua;
+                    color: purple;
+                }
+                .set2 {
+                    text-align: center;
+                    width: 120px;
+                }
+                .set3 {
+                    border: sandybrown dashed 5px;
+                }*/
+                mystyle: {
+                    set1: {
+                        backgroundColor: "aqua",
+                        color: "purple",
+                    },
+                    set2: {
+                        textAlign: "center",
+                        width: "120px",
+                    },
+                    set3: {
+                        border: "sandybrown dashed 5px",
+                    },
+                },
+                myLayout: {
+                    width: "150px",
+                    height: "80px",
+                    textAlign: "center",
+                }
+            },
+            template: null,
+            methods: null,
+            components: null,
+            computed: null,
+            watch: null,
+        })
+</script>
