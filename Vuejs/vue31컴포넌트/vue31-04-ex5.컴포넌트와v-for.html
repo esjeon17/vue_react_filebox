@@ -10,33 +10,36 @@
 
 <body>
     <xmp>
-    Vue.js v-for  지시자 에 대해서 학습한다.
+        Vue.js v-for 지시자 에 대해서 학습한다.
 
-    단순 배열을 바인딩하는 방법 학습
-    array = [1,2,3,4,5];
+        단순 배열을 바인딩하는 방법 학습
+        array = [1,2,3,4,5];
 
 
-    Object Arrary를 바인딩하는 방법 학습.
-    Object Arrary 예시)
-    var objarray = [
+        Object Arrary를 바인딩하는 방법 학습.
+        Object Arrary 예시)
+        var objarray = [
         { text: 'One', value: 'A' },
         { text: 'Two', value: 'B' },
         { text: 'Three', value: 'C' }
-    ];
+        ];
 
-    문제.
-    1. 박스를 만드는 전역 컴포넌트를 만들고 아래의 스타일을 적용하시오.
-    {
+        문제.
+        1. 박스를 만드는 전역 컴포넌트를 만들고 아래의 스타일을 적용하시오.
+        {
         display: inline-block;
         font-size: 3em;
         border: 1px dashed blue;
         padding: 10px 20px;
         margin: 5px;
         text-align:center;
-    }
-    2. 버튼을 클릭할 때마다 전역 컴포넌트를 추가하시오.
+        }
+        2. 버튼을 클릭할 때마다 전역 컴포넌트를 추가하시오.
 
-    [참조]page 104
+        [참조]
+        1. page 104
+        2. " vue13-05.인스턴스data속성변경set.html " 예제
+
     </xmp>
     <hr>
 
@@ -48,6 +51,7 @@
         </p>
         <p>
             <b v-for="(val, i) in arr" v-bind:key="i">
+                <!--{{val}} -->
                 <component-box v-bind:num="val"></component-box>
             </b>
         </p>
@@ -59,4 +63,53 @@
 </html>
 
 <!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
 
+    // 컴포넌트 만들기
+    Vue.component("component-box", {
+        /* pdtmc^2w */
+        props: ["num"],
+        data: function () {
+            return {
+                style1: {
+                    display: "inline-block",    //"inlineBlock"  둘다 적용되어 보여짐
+                    fontSize: "3em",
+                    border: "1px dashed blue",
+                    padding: "10px 20px",
+                    margin: "5px",
+                    textAlign: "center",
+                },
+            }
+        },
+        template: `
+            <span v-bind:style="style1">{{num}}</span>
+        `,
+
+    });
+
+    // 인스턴스 만들기
+    new Vue({
+        el: "#app",
+        data: {
+            arr: [1, 2, 3, 4, 5],
+
+        },
+        methods: {
+            clickAddBox: function (event) {
+                console.log("clickAddBox");
+                //Vue.set(this.$data.arr, this.$data.arr.length, +1);   내가 넣은 소스. 
+                Vue.set(this.$data.arr, this.$data.arr.length, this.$data.arr.length + 1);
+            },
+        },
+    });
+
+    /*
+        1. Vue.set(object, key, value)를 이용해서 변경한다.
+                Vue.set() 은 Vue prototype 의 static 메서드
+                Vue.set(this.arr, 0, 100);
+                Vue.set(this.$data.arr, 0, 100);
+                Vue.set(this.$data.arr, this.$data.arr.length, 70)
+    */
+
+</script>
