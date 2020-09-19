@@ -89,7 +89,7 @@
         <hr>
 
         <div>
-            <select v-model="selected">
+            <select v-model:selected="selected">
                 <option disabled value="">Please select one</option>
                 <option>A</option>
                 <option>B</option>
@@ -104,6 +104,7 @@
             <select v-model="selected">
                 <option v-for="(option,i) in options" v-bind:value="option.value">
                     {{i}} : {{ option.text }}
+                    <!--   i는 인덱스   -->
                 </option>
             </select>
             <span>Selected: {{ selected }}</span>
@@ -114,3 +115,30 @@
 </html>
 
 <!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el: "#app3",
+        data: {
+            name: null,
+            message: null,
+            checked: true,    // true, false  null 값은 false 처리 된다. 
+            checkedNames: [],   // value 값이 넘어온다.
+            picked: null,
+            selected: null,
+            options: [
+                { text: "One", value: "A" },
+                { text: "Two", value: "B" },
+                { text: "Three", value: "C" },
+            ]
+        },
+        template: null,
+        methods: null,
+        components: null,
+        computed: null,
+        watch: null,
+    })
+
+
+
+</script>
