@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,30 +13,81 @@
     <link rel="stylesheet" href="../css/reset.css">
 
 </head>
+
 <body>
-    <pre>
+    <xmp>
 
-      Vue 컴포넌트 상태관리에 대해서 배운다.
+        Vue 컴포넌트 상태관리에 대해서 배운다.
 
-      상태관리란? 컴포넌트간 데이터 공유하는 방법을 말한다.
+        상태관리란? 컴포넌트간 데이터 공유하는 방법을 말한다.
 
-      부모자식 컴포넌트 간 통신은?
-          부모는 자식에게 props를 통해 데이터를 전달하고
-          자식은 부모에게 event로 알린다.
+        부모자식 컴포넌트 간 통신은?
+        부모는 자식에게 props를 통해 데이터를 전달하고
+        자식은 부모에게 event로 알린다.
 
-      형재자매 컴포넌트 간 통신은?
-          이벤트 버스를 사용하여 주고 받는다.
+        형재자매 컴포넌트 간 통신은?
+        이벤트 버스를 사용하여 주고 받는다.
 
-      [참조]page 62~75
-    </pre>
+        [참조]page 62~75
+        <hr>
+        1. child-component 컴포넌트 만들기
+        2. child-component 컴포넌트 템플릿에는
+        <div>
+            <button v-on:click="showLog">show</button>
+        </div>
+        3. 버튼을 클릭하면
+        show-log
 
-      <img src="../images/components_parent_child.png" alt="" srcset="">
+    </xmp>
+
+    <img src="../images/components_parent_child.png" alt="" srcset="">
     <hr>
     <div id="app">
         <child-component v-on:show-log="printText"></child-component>
     </div>
 
 </body>
+
 </html>
 
 <!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script>
+
+    Vue.component("child-component", {
+        /* pdtmc^2w  */
+        props: [''],
+        data: function () { return {} },
+        template: `
+        <div>
+            <button v-on:click="showLog">show</button>
+        </div>
+        `,
+        methods: {
+            showLog: function () {
+                // show-log 라는 사용자 이벤트를 발생시키고,
+                // "abc"와 123을 이벤트로 전달하시오.
+                this.$emit("show-log", "abc", 123, 'kkk');    //this.$emit("이벤트명", 이벤트 값들 );
+            }
+        }
+    });
+    new Vue({
+        /* edtmc^2w */
+        el: '#app',
+        data: {},
+        template: null,
+        methods: {
+            // 사용자 이벤트 핸들러
+            printText: function (arg1, arg2) {
+                debugger;
+                console.log("printText", arg1, arg2);
+                console.log(arguments);   // 함수에서 자동으로 처리해주는 아이.. 
+
+            }
+        },
+        components: null,
+        computed: null,
+        watch: null,
+    })
+
+</script>

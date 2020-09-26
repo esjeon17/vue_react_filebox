@@ -13,19 +13,19 @@
     <link rel="stylesheet" href="../css/reset.css">
 
     <style>
+        .component-parent {
+            width: 50%;
+            background-color: lightblue;
+            padding: 5%;
+        }
 
-    .component-parent {
-        width: 50%;
-        background-color: lightblue;
-        padding:5%;
-    }
-    .component-child {
-        width: 80%;
-        background-color: lightgray;
-        padding: 5% 5% 10% 0;
-    }
+        .component-child {
+            width: 80%;
+            background-color: lightgray;
+            padding: 5% 5% 10% 0;
+        }
     </style>
-	
+
 </head>
 
 <body>
@@ -34,15 +34,15 @@
         예제 "34-ex-01-counter.html" 를 Vuex를 사용하는 방법으로 바꾸어 본다.
 
         이 앱의 특징은 다음과 같습니다.
-          + 버튼을 클릭하면 카운터가 올라가고
-          - 버튼을 클릭하면 카운터가 감소됩니다.
+        + 버튼을 클릭하면 카운터가 올라가고
+        - 버튼을 클릭하면 카운터가 감소됩니다.
 
-          child-componet 템플릿 태그는 아래와 같이 설정하시오.
-          <div class="component-child">
-              Child counter : {{ num }} <br>
-              <button name="child" v-on:click="addCounter">+</button>
-              <button name="child" v-on:click="subCounter">-</button>
-          </div>
+        child-componet 템플릿 태그는 아래와 같이 설정하시오.
+        <div class="component-child">
+            Child counter : {{ num }} <br>
+            <button name="child" v-on:click="addCounter">+</button>
+            <button name="child" v-on:click="subCounter">-</button>
+        </div>
     </xmp>
     <hr>
 
@@ -53,7 +53,9 @@
         <p></p>
 
         <!-- Child 컴포넌트 -->
-        <component-child></component-child>
+        <component-child v-bind:num="counter" v-on:add-counter="addCounter" v-on:sub-counter="subCounter">
+        </component-child>
+        <!--component-child></component-child-->
     </div>
 </body>
 
@@ -61,3 +63,89 @@
 
 <!-- vue 스크립트 플러그인 임포트   -->
 
+<!-- vue 스크립트 플러그인 임포트   -->
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js"> /* vue 플러그인 임포트 */</script>
+<script src="https://unpkg.com/vuex@3.3.0/dist/vuex.js"> /* vuex 플러그인 임포트 */</script>
+<script>
+
+    var store = new Vuex.Store({
+        actions: {
+            addCounter: function (mutations, value,) {
+                //debugger;
+                mutations.commit("addCounter", value);
+            },
+            subCounter: function (mutations, value,) {
+                mutations.commit("subCounter", value);
+            }
+        },
+        mutations: {
+            addCounter: function (state, value,) {
+                //debugger;
+                state.counter = state.counter + value;
+            },
+            subCounter: function (state, value,) {
+                state.counter = state.counter - value;
+            }
+        },
+        state: {
+            counter: 0,
+        },
+        getters: {
+            counter: function (state) {
+                //debugger;
+                return state.counter;
+            }
+        }
+    });
+
+
+    Vue.component("component-child", {
+        /* pdtmc^2w  */
+        props: ['num'],
+        data: function () { return {} },
+        template: `
+         <div class="component-child">
+             Child counter : {{ num }} <br>
+             <button name="child" v-on:click="addCounter">+</button>
+             <button name="child" v-on:click="subCounter">-</button>
+         </div>
+         `,
+        methods: {
+            addCounter: function (event, arg) {
+                //this.$emit("add-counter", event, +10);
+                store.dispatch("addCounter", 1);
+            },
+            subCounter: function (event, arg) {
+                //this.$emit("sub-counter", event, -10);
+                store.dispatch("subCounter", 1);
+            }
+        }
+    });
+
+    new Vue({
+        /* edtmc^2w */
+        el: '#app',
+        data: {
+            //counter: 0,
+        },
+        template: null,
+        methods: {
+            addCounter: function (event, arg) {
+                console.log("addCounter");
+                //this.$data.counter = this.$data.counter = + arg;
+                store.dispatch("addCounter", 1);
+            },
+            subCounter: function (event, arg) {
+                console.log("subCounter");
+                //this.$data.counter = this.$data.counter = - arg;
+                store.dispatch("subCounter", 1);
+            },
+        },
+        computed: {
+            counter: function () {
+                return store.getters.counter
+            }
+        }
+    })
+
+</script>
