@@ -47,16 +47,6 @@
 
     class Loop1 extends React.Component {
 
-        static defaultProps = {  /*  props의 디폴트 값 설정 */ }
-        static propsTypes = {  /* props의 프로퍼티 타입 설정 */ }
-        state = {
-
-        }
-        constructor(props) {
-            super(props);
-            // this 바인딩
-
-        }
         render() {
             var arrs = [];
             for (var index in elements) {
@@ -69,10 +59,38 @@
             );
         }
     }
-
-    //export default Loop1;
-
     ReactDOM.render(<Loop1></Loop1>, document.getElementById("wrap1"));
 
+    class Loop2 extends React.Component {
+
+        render() {
+            const items = []
+            for (const [index, value] of elements.entries()) {
+                items.push(<li key={index}>{value}</li>)
+            }
+            return (
+                <div>
+                    {items}
+                </div>
+            );
+        }
+    }
+    ReactDOM.render(<Loop2></Loop2>, document.getElementById("wrap2"));
+
+    class Loop3 extends React.Component {
+
+        render() {
+            return (
+                <div>
+                    {
+                        elements.map(function (value, key) {
+                            return (<li key={key}> {value} </li>)
+                        })
+                    }
+                </div>
+            );
+        }
+    }
+    ReactDOM.render(<Loop3></Loop3>, document.getElementById("wrap3"));
 
 </script>
