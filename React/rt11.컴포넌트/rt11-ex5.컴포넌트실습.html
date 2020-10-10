@@ -10,11 +10,13 @@
         body {
             background-color: lightgrey;
         }
-        body > * {
+
+        body>* {
             text-align: center;
             vertical-align: middle;
             line-height: 2em;
         }
+
         p {
             top: 50%;
             text-align: center;
@@ -23,7 +25,7 @@
 
         header {
             background-color: orange;
-            margin: 10px 0 ;
+            margin: 10px 0;
             width: 100%;
             height: 60px;
         }
@@ -31,23 +33,25 @@
         /* <div id="content-list"> */
         #content {
             background-color: white;
-            margin: 0 0 30px 0 ;
+            margin: 0 0 30px 0;
         }
 
         aside {
             background-color: gray;
-            margin: 20px ;
+            margin: 20px;
             width: calc(50% - 40px);
             height: 200px;
             float: left;
         }
+
         #content-list {
             background-color: gray;
-            margin: 20px ;
+            margin: 20px;
             width: calc(50% - 40px);
             float: right;
             height: 200px;
         }
+
         #content::after {
             clear: both;
             display: block;
@@ -55,7 +59,7 @@
         }
 
         footer {
-            margin: 10px 0 ;
+            margin: 10px 0;
             background-color: lightblue;
             width: 100%;
             height: 50px;
@@ -66,6 +70,12 @@
 
 <body>
     <div id="app">
+        <CompHeader></CompHeader>
+        <CompContent></CompContent>
+        <CompFooter></CompFooter>
+    </div>
+    <!--
+        <div id="app">
         <header>
             Header
         </header>
@@ -82,6 +92,84 @@
             Footer
         </footer>
     </div>
+    -->
 </body>
 
 </html>
+
+
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React}from 'react'; */</script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from 'react-dom'; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로변환 */</script>
+<script type="text/babel">
+
+    console.log(React);
+    console.log(ReactDOM);
+
+    // CompHeader
+    class CompHeader extends React.Component {
+        render() {
+            return (
+                <header>
+                    Header
+                </header>
+            );
+        }
+    }
+
+    // CompContent
+    class CompContent extends React.Component {
+        render() {
+            return (
+                <div id="content">
+                    <p>Content</p>
+                    <CompAside></CompAside>
+                    <CompContentList></CompContentList>
+                </div>
+            );
+        }
+    }
+
+    // CompFooter
+    class CompFooter extends React.Component {
+        render() {
+            return (
+                <footer>
+                    Footer
+                </footer>
+            );
+        }
+    }
+    // CompAside
+    class CompAside extends React.Component {
+        render() {
+            return (
+                <aside>
+                    Aside
+                </aside>
+            );
+        }
+    }
+    // CompContentList
+    class CompContentList extends React.Component {
+        render() {
+            return (
+                <div id="content-list">
+                    List
+                </div>
+            );
+        }
+    }
+    //export default CompHeader
+
+    ReactDOM.render(
+        <div>
+            <CompHeader></CompHeader>
+            <CompContent></CompContent>
+            <CompFooter></CompFooter>
+        </div>
+        , document.getElementById("app"));
+
+</script>

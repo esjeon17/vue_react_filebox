@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tick Tock</title>
 
-    <link rel="stylesheet" href="../css/reset.css"/>
+    <link rel="stylesheet" href="../css/reset.css" />
 </head>
 
 <body>
@@ -29,3 +29,55 @@
 </html>
 
 <!-- react 플러그인 include   -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React}from 'react'; */</script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from 'react-dom'; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로변환 */</script>
+<script type="text/babel">
+
+    console.log(React);
+    console.log(ReactDOM);
+
+    class TickTock extends React.Component {
+
+        state = {
+            counter: 0,
+            timer: null    /* timer 핸들러 */
+        }
+        componentDidMount() {
+            // 마운트 완료 후에 : 한번만  
+
+            let aaa = setInterval(this.tick, 1000)   // 1000ms = 1s
+            this.setState({
+                timer: aaa
+            })
+        }
+        tick = () => {
+            this.setState({
+                counter: this.state.counter + 1
+            })
+        }
+        componentDidUpdate(prevProps, prevState) {
+            // 업데이트 완료 후에 : 여러번, state가 변경될 때마다
+            console.log("componentDidUpdate");
+        }
+        componentWillUnmount() {
+            // 언마운트 완료 후에 : 페이지 unload 될때 한번.
+        }
+        handler = (e) => {
+            // 이벤트 핸들러를 화살표 함수로 만들면 constructor(생성자)에서 this를 bind() 생략해도 된다. 
+        }
+        render() {
+            return (
+                <div>
+                    current counter : {this.state.counter}
+                </div>
+            );
+        }
+    }
+    //export default TickTock
+
+    ReactDOM.render(<TickTock></TickTock>, document.getElementById("app"));
+
+</script>
