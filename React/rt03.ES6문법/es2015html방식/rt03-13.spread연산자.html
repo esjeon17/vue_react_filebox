@@ -18,21 +18,42 @@
 
         ES 5에서는
         arguments 매개변수는 유사 배열 객체다.
-            length 프로퍼티가 있다.
-            Array  메서드를 사용할 수 없다.
-            arrow function에서는 arguments는 사용할 수 없다.
+        length 프로퍼티가 있다.
+        Array 메서드를 사용할 수 없다.
+        arrow function에서는 arguments는 사용할 수 없다.
 
         ES 6에서는
         rest 매개변수는 배열이다.
-            rest 연산자(...)를 사용하여 함수의 매개변수를 작성한 형태다.
-            함수의 매개변수로 넘어오는 값들을 "배열"로 만든다.
+        rest 연산자(...)를 사용하여 함수의 매개변수를 작성한 형태다.
+        함수의 매개변수로 넘어오는 값들을 "배열"로 만든다.
 
         Spread 연산자는 ... 이다.
-            이터러블(iterable) 객체를 "개별" 요소로 분리
-            이터러블(iterable) 객체에는 Array, String, Map, Set 등이 있다.
-            iterator를 생성해서 next()로 순회할 수 있는 자료구조가 이터러블
+        이터러블(iterable) 객체를 "개별" 요소로 분리
+        이터러블(iterable) 객체에는 Array, String, Map, Set 등이 있다.
+        iterator를 생성해서 next()로 순회할 수 있는 자료구조가 이터러블
     </xmp>
 </body>
 
 </html>
-
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script type="text/babel">
+    const cities = ["서울", "부산", "제주"];
+    console.log(...cities);    //"서울", "부산", "제주"    //  ... : sread 연산자
+
+    const east = ["Uganda", "Kenya", "Tanzania"];
+    const west = ["Nigeria", "Maneroon", "Ghana"];
+    const countries = [...ease, ...west];   // ... : spread 연산자
+    console.log(countries);
+
+    let lakes = ["경포호", "화진포", "송지호", "청초호"];
+    let [first, ...rest] = lakes;   // ...rest : rest 연산자
+    console.log(lest);     // 화진포 송지호 청초호
+
+    let [city1, ...cityrest] = [...east, ...west];
+    //   ...cities : rest 연산자
+    //   ... east : spread 연산자
+    //   ... west : spread 연산자
+    console.log(cityrest);     // "Kenya" "Tanzania"  "Nigeria" "Maneroon" "Ghana"
+
+</script>

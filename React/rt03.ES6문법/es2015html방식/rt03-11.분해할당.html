@@ -1,10 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
 </body>
-</html>
+
+</html>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js"> /* JSX를 자바스크립트로 변환 */</script>
+<script type="text/babel">
+    const points = [20, 30, 40];
+    const x = points[0];
+    const y = points[1];
+    const z = points[2];
+    console.log(x, y, z);   // 20, 30, 40
+
+    const points6 = [20, 30, 40];
+    const [x6, y6, z6] = points6;
+    console.log(x6, y6, z6);    // 20, 30, 40
+
+    const car = {
+        type: "t",
+        color: "s",
+        model: 2017,
+    }
+    const { type, color, model, gear } = car;
+    console.log(type, color, model, gear);    // t s 2017 undefined
+</script>

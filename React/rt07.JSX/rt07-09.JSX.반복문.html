@@ -13,6 +13,10 @@
 <body>
     <xmp>
         JSX 에서 반복문을 사용하는 방법을 배운다.
+        컴포넌트명
+        wrap1 ==> Loop1
+        wrap2 ==> Loop2
+        wrap3 ==> Loop3
 
         참고: https://flaviocopes.com/react-how-to-loop/
     </xmp>
@@ -26,3 +30,49 @@
 </html>
 
 <!-- react 플러그인 include   -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React}from 'react'; */</script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from 'react-dom'; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로변환 */</script>
+<script type="text/babel">
+    const elements = ['One', 'Two', 'Three'];
+
+    //import React, { Component } from 'react';
+    //import ReactDOM from 'react-dom'
+
+    console.log(React);
+    console.log(React.Component);
+    console.log(ReactDOM);
+
+    class Loop1 extends React.Component {
+
+        static defaultProps = {  /*  props의 디폴트 값 설정 */ }
+        static propsTypes = {  /* props의 프로퍼티 타입 설정 */ }
+        state = {
+
+        }
+        constructor(props) {
+            super(props);
+            // this 바인딩
+
+        }
+        render() {
+            var arrs = [];
+            for (var index in elements) {
+                arrs.push(<li key={index}>{elements[index]}</li>);
+            }
+            return (
+                <div>
+                    {arrs}
+                </div>
+            );
+        }
+    }
+
+    //export default Loop1;
+
+    ReactDOM.render(<Loop1></Loop1>, document.getElementById("wrap1"));
+
+
+</script>
