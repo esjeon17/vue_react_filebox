@@ -82,3 +82,16 @@
 </body>
 
 </html>
+<script>
+    function handlerClick(event, param1, param2){
+        console.log("handlerClick", event, param1, param2);
+    }
+    function clickWithParam(event, param1, param2) {
+        console.log("clickWithParam :: ", "param1>>", param1, ", param2>>", param2);
+    }
+    function clickWithNoParam(event) {
+        var param1 =  event.target.dataset.param1;
+        var param2 =  event.target.dataset.param2;
+        console.log("clickWithNoParam :: ", "param1>>", param1, ", param2>>", param2);
+    }
+</script>

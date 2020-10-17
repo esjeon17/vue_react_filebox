@@ -52,10 +52,10 @@
                 <td>{{man.name}}</td>
                 <td>{{man.power}}</td>
                 <td>
-                    <button v-on:click="doUp(man.id, index)">Power Up</button>
-                    <button v-on:click="doDown(man.id, index)">Power Down</button>
-                    <button v-on:click="doEdit(man.id, index)">Edit</button>
-                    <button v-on:click="doDel(man.id, index)">Del</button>
+                    <button v-on:click="doUp(index)">Power Up</button>
+                    <button v-on:click="doDown(index)">Power Down</button>
+                    <button v-on:click="doEdit(index)">Edit</button>
+                    <button v-on:click="doDel(index)">Del</button>
                 </td>
             </tr>
         </table>
@@ -63,5 +63,71 @@
 
 </body>
 </html>
+
 <!-- vue 스크립트 플러그인 임포트   -->
-
+<script src="https://unpkg.com/vue@2.5.16/dist/vue.js">/* vue 플러그인 임포트 */</script>
+<script>
+    new Vue({
+        el:'#app',
+        data : {
+            user:{
+                id:0,
+                name:'',
+                power:0,
+            },
+            list : [
+                {id:1, name: "슈퍼맨", power: 100},
+                {id:2, name: "아쿠아맨", power: 300},
+                {id:3, name: "스파이더맨", power: 500},
+                {id:4, name: "배트맨", power: 30},
+            ],
+        },
+        methods:{
+            insert(){
+                if(this.$data.user.name==''){
+                    alert('이름을 입력하세요');
+                    this.$refs.myinput.focus();
+                    return;
+                }
+                //input에 입력한 값들을 list에 추가하기
+                //push() 활용
+
+                /* 최대,최소값
+                array.reduce(function(prev, next){
+                    return prev>next? prev:next;  //최대값
+                    return prev>next? next:prev;  //최대값
+                })
+                */
+
+                var max = this.$data.list.reduce(function(a,b){
+                    return a.id>b.id? a.id: b.id;
+                })
+                var newUser={id:max+1, name:this.$data.user.name, power:this.$data.user.power};
+                this.$data.list.push(newUser);
+            },
+            doUp(idx){
+                //alert(idx);
+                //100씩 증가
+                this.$data.list[idx].power += 100;
+            },
+            doDown(idx){
+                //alert(idx);
+                //50씩 감소
+                this.$data.list[idx].power -= 50;
+            },
+            doEdit(idx){
+                //선택한 사람 정보를 input에 보여주기
+                this.$data.user=this.$data.list[idx];
+            },
+            doDel(idx){
+                //배열에서 추가=> push()
+                //배열에서 삭제=> splice(index, count)
+                this.$data.list.splice(idx, 1);  //삭제 (숫자는 몇개 삭제 할 것인지)
+            },
+		},
+        mounted(){
+            //myinput에 focus
+            this.$refs.myinput.focus();  //vue에선 $refs로 접근
+        },
+    })
+</script>

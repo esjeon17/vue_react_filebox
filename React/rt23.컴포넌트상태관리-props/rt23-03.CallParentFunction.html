@@ -32,7 +32,7 @@
     
     </pre>
     <hr>
-
+    <!--
     <div id="app">
         <div id="parent">
             <div id="child">
@@ -46,7 +46,95 @@
             </div>
         </div>
     </div>
+    -->
+    <div id="app">
+        
+    </div>
+
 </body>
 </html>
 
 <!-- react 플러그인 include   -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React}from 'react'; */</script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from 'react-dom'; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로변환 */</script>
+<script type="text/babel">  
+    console.log(React);
+    console.log(ReactDOM);
+
+    class Child extends React.Component {
+        doParentToggleFromChild = (event) => { 
+            console.log(event.target); 
+            this.props.doParentToggleFromChild(10);
+        } 
+        render() {
+            return (
+                <div id="child">
+                    {this.props.counter}
+                    <br/>
+                    I am a child
+                    <br/>
+                    <button onClick={this.doParentToggleFromChild}>
+                        toggle
+                    </button>
+                </div>
+            );
+        }
+    }
+
+    class Parent extends React.Component {
+        state = {
+            counter : 10
+        }
+        constructor(props) {
+            super()
+            // this 바인드
+            this.func.doParentToggleFromChild = this.func.doParentToggleFromChild.bind(this)
+            this.func.doParentToggleFromChild2 = this.func.doParentToggleFromChild2.bind(this)
+        }
+        func = {
+            //   func 필드에 추가한 매서드는 constructor 에서 this 바인드 처리해야 한다. 
+            doParentToggleFromChild(param) { 
+                console.log("doParentToggleFromChild"); 
+                this.setState({
+                    counter : this.state.counter + param
+                })
+            },
+            doParentToggleFromChild2(param){ 
+                console.log("doParentToggleFromChild"); 
+                this.setState({
+                    counter : this.state.counter + param
+                })
+            }
+            
+        }
+        /*
+        doParentToggleFromChild = (param) => { 
+            // 처리 메서드
+            console.log("doParentToggleFromChild");    
+            // this.state.counter = this.state.counter + param;
+            this.setState({
+                counter : this.state.counter + param
+            })
+        } 
+        */
+        /*
+        <Child counter={this.state.counter}></Child> 
+        <Child {...this.state} doParentToggleFromChild={this.doParentToggleFromChild}></Child>
+        <Child {...this.state} {...this.doParentToggleFromChild}></Child>
+        */
+        render() {
+            return (
+                <div id="parent">
+                    <Child {...this.state} {...this.func}></Child>
+                </div>
+            );
+        }
+    }
+        
+    ReactDOM.render(<Parent></Parent>, document.getElementById("app"));
+
+
+</script>
