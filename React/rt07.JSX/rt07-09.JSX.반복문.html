@@ -80,10 +80,11 @@
     class Loop3 extends React.Component {
 
         render() {
+            const items = this.props.items;
             return (
                 <div>
                     {
-                        elements.map(function (value, key) {
+                        items.map(function (value, key) {
                             return (<li key={key}> {value} </li>)
                         })
                     }

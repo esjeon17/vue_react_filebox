@@ -25,8 +25,43 @@
         ==> 검색조건: javascript object array max
         방법1. .map() 를 사용하는 방법
         방법2. .reducer()
+        
+        작업 순서 
+        1. CrudApp 컴포넌트 만들기
+            constructor(props){
+                super()
+                // this 바인드 
+                this.func.insert  = this.func.insert.bind(this)  
+                this.func.idoUp   = this.func.idoUp.bind(this)
+                this.func.idoDown = this.func.idoDown.bind(this)
+                this.func.idoDel  = this.func.idoDel.bind(this)
+                this.func.idoEdit = this.func.idoEdit.bind(this)                    
+            }          
+            func = {
+                insert(man){
+                    // ...생략
+                }
+                doUp(id){
+                    // ...생략
+                }
+                doDown(id){
+                    // ...생략
+                }
+                doDel(id){
+                    // ...생략
+                }
+                doEdit(paramMan){
+                    // ...생략
+                }
+            }
+        2. CrudInput 컴포넌트 만들기
+        3. CrudList 컴포넌트 만들기
+        4. CrudListItem 컴포넌트 만들기
+        5. ReactDOM 사용하여 화면 붙이기
+            ReactDOM.render( <CrudApp></CrudApp>, document.getElementById("app") );
     </pre>
     <hr>
+    <!--
     <div id="app">
         <div>
             <h1>Creat Read Update Delete</h1>
@@ -78,8 +113,202 @@
             </tbody>
         </table>
     </div>
+    -->
+    <div id="app" style="margin-bottom: 300px;">
+        
+    </div>
 
 </body>
 </html>
 
 <!-- react 플러그인 include   -->
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react/16.12.0/umd/react.development.js"> /* import { React}from 'react'; */</script>
+<script
+    src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/16.11.0/umd/react-dom.development.js">/* import { ReactDOM } from 'react-dom'; */</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.26.0/babel.js">/* JSX를 자바스크립트로변환 */</script>
+<script type="text/babel">     
+    console.log(React);
+    console.log(ReactDOM);
+    
+    class CrudApp extends React.Component {
+        state = {
+            /* CrudInput 컴포넌트에서 사용 */
+            user:{
+                id:0,
+                name:'',
+                power:0,
+            },
+            /* CrudList 컴포넌트에서 사용 */
+            list : [
+                {id:1, name: "슈퍼맨", power: 100},
+                {id:2, name: "아쿠아맨", power: 300},
+                {id:3, name: "스파이더맨", power: 500},
+                {id:4, name: "배트맨", power: 30},
+            ],
+        }
+        constructor(props){
+            super()
+            // this 바인드 
+            this.func.insert  = this.func.insert.bind(this)  
+            this.func.doUp   = this.func.doUp.bind(this)
+            this.func.doDown = this.func.doDown.bind(this)
+            this.func.doDel  = this.func.doDel.bind(this)
+            this.func.doEdit = this.func.doEdit.bind(this)                    
+        }          
+        func = {
+            insert(man){
+                // ...생략
+            },
+            doDel(id){
+                let mans = this.state.list.filter( (man,index)=>{
+                    return man.id !== id
+                });
+                this.setState({
+                    list: mans 
+                })
+            },
+            doUp(id){
+                let mans = this.state.list.filter( (man,index)=>{
+                    if ( man.id === id ) {
+                        man.power = Number(man.power) + 100;
+                    }
+                    return man;
+                });
+                this.setState({
+                    list: mans 
+                })
+            },
+            doDown(id){
+                let mans = this.state.list.filter( (man,index)=>{
+                    if ( man.id === id ) {
+                        man.power = Number(man.power) - 50;
+                    }
+                    return man;
+                });
+                this.setState({
+                    list: mans 
+                })
+            },
+            doEdit(paramMan){
+                // ...생략
+            },
+        }
+        render() {
+            return (
+                <div>
+                    <div>
+                        <h1>Creat Read Update Delete</h1>
+                        <div><label htmlFor="">Name : </label> <input type="text" /></div>
+                        <div><label htmlFor="">Power : </label> <input type="text" /></div> <button>Add</button>
+                        <hr />
+                    </div>
+                    <CrudList {...this.state} {...this.func}>
+                    </CrudList>
+                </div>
+            );
+        }
+    }
+    //export default CrudApp;
+
+    class CrudList extends React.Component {
+    
+        static defaultProps = {  /*  props의 디폴트 값 설정 */  } 
+        static propsTypes = {  /* props의 프로퍼티 타입 설정 */ } 
+        state = {
+    
+        }
+        constructor(props) {
+            super(props);
+            // this 바인딩
+    
+        }
+        componentDidMount() {
+        // 마운트 완료 후에 : 한번만  
+        }
+        componentDidUpdate(prevProps, prevState) {
+         // 업데이트 완료 후에 : 여러번, state가 변경될 때마다
+        }
+        componentWillUnmount() {
+        // 언마운트 완료 후에 : 페이지 unload 될때 한번.
+        }
+        render() {
+            const rows = this.props.list;   //   ==  CrudApp 
+            //debugger;
+            let trs = rows.map( (item, index)=> {
+                return (
+                    <CrudListItem 
+                        {...this.props} 
+                        man={item} 
+                        key={item.id}></CrudListItem>
+                )
+            })
+            //debugger;
+            return (
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>NAME</th>
+                            <th>POWER</th>
+                            <th>CRUD</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {trs}
+                    </tbody>
+                </table>
+            );
+        }
+    }
+    //export default CrudList;
+
+    class CrudListItem extends React.Component {
+        constructor(props) {
+            super(props);
+            // this 바인딩
+    
+        }
+        doDel = (event) => { 
+            console.log(event.target);
+            const {id} = this.props.man;    // const id = this.props.man.id   같은 내용. 
+            this.props.doDel(id);
+        } 
+        doUp = (event) => { 
+            console.log(event.target);
+            const {id} = this.props.man;
+            this.props.doUp(id);
+        } 
+        doDown = (event) => { 
+            console.log(event.target);
+            const {id} = this.props.man;
+            this.props.doDown(id);
+        } 
+        doEdit = (event) => { 
+            console.log(event.target);
+            // const item = this.props.man;
+            // this.props.doEdit(item);
+        } 
+        render() {
+            let item = this.props.man;
+            return (
+                <tr className="">
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.power}</td>
+                    <td>
+                        <button onClick={this.doDel}>Del</button>
+                        <button onClick={this.doUp}>Power Up</button>
+                        <button onClick={this.doDown}>Power Down</button>
+                        <button onClick={this.doEdit}>Edit</button>
+                    </td>
+                </tr>
+            );
+        }
+    }
+    
+    //export default CrudListItem;
+
+    ReactDOM.render(<CrudApp></CrudApp>, document.getElementById("app"));
+
+</script>
