@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import CrudInput from './CrudInput.js';
-import CrudList from './CrudList.js';
+import CrudInput from './CrudInput'
+import CrudList from './CrudList'
 
 class CrudApp extends React.Component {
     state = {

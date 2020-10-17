@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
 
 class CrudListItem extends React.Component {
     state = {
@@ -101,4 +100,4 @@ class CrudListItem extends React.Component {
     }
 }
 
-export default CrudApp;
+export default CrudListItem;

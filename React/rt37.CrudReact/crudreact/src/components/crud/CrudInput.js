@@ -1,5 +1,4 @@
-import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
+import React, { Component } from 'react'
 
 class CrudInput extends React.Component {
     render() {
@@ -14,4 +13,4 @@ class CrudInput extends React.Component {
     }
 }
 
-export default CrudApp;
+export default CrudInput;

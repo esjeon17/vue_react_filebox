@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom'
-import CrudListItem from './CrudListItem.js';
+import CrudListItem from './CrudListItem';
 
 class CrudList extends React.Component {
     
@@ -53,4 +52,4 @@ class CrudList extends React.Component {
     }
 }
 
-export default CrudApp;
+export default CrudList;
