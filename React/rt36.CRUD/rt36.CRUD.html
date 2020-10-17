@@ -32,31 +32,77 @@
                 super()
                 // this 바인드 
                 this.func.insert  = this.func.insert.bind(this)  
-                this.func.idoUp   = this.func.idoUp.bind(this)
-                this.func.idoDown = this.func.idoDown.bind(this)
-                this.func.idoDel  = this.func.idoDel.bind(this)
-                this.func.idoEdit = this.func.idoEdit.bind(this)                    
+                this.func.doUp   = this.func.doUp.bind(this)
+                this.func.doDown = this.func.doDown.bind(this)
+                this.func.doDel  = this.func.doDel.bind(this)
+                this.func.doEdit = this.func.doEdit.bind(this)                    
             }          
             func = {
                 insert(man){
                     // ...생략
-                }
+                },
                 doUp(id){
                     // ...생략
-                }
+                },
                 doDown(id){
                     // ...생략
-                }
+                },
                 doDel(id){
                     // ...생략
-                }
+                },
                 doEdit(paramMan){
                     // ...생략
-                }
+                },
             }
         2. CrudInput 컴포넌트 만들기
+
         3. CrudList 컴포넌트 만들기
+
         4. CrudListItem 컴포넌트 만들기
+            4-1. 편집여부를 확인하기 위한 상태값(state) 만들기
+                state = {
+                    isEditMode: false
+                }
+                
+            4-2. 데이터 표시용 JSX                
+            <tr key={item.id} className={"strong"}>
+                    <td>{item.id}</td>
+                    <td>{item.name}</td>
+                    <td>{item.power}</td>
+                    <td>
+                        <button onClick={this.doUp}>Power Up</button>
+                        <button onClick={this.doDown}>Power Down</button>
+                        <button onClick={this.doEdit}>Edit</button>
+                        <button onClick={this.doDel}>Del</button>
+                    </td>
+            </tr> 
+        
+            4-3. 데이터 편집용 JSX
+            <tr key={item.id} className={"strong"}>
+                    <td>{item.id}</td>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            ref={this.refUserName }
+                            defaultValue={item.name}
+                        />
+                    </td>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="power" 
+                            ref={this.refUserPower }
+                            defaultValue={item.power}
+                        />
+                    </td>
+                    <td>
+                        <button onClick={this.doUp}>Power Up</button>
+                        <button onClick={this.doDown}>Power Down</button>
+                        <button onClick={this.doSave}>Save</button>
+                    </td>
+            </tr> 
+            
         5. ReactDOM 사용하여 화면 붙이기
             ReactDOM.render( <CrudApp></CrudApp>, document.getElementById("app") );
     </pre>
@@ -131,6 +177,8 @@
     console.log(React);
     console.log(ReactDOM);
     
+    
+
     class CrudApp extends React.Component {
         state = {
             /* CrudInput 컴포넌트에서 사용 */
@@ -191,18 +239,24 @@
                 })
             },
             doEdit(paramMan){
-                // ...생략
+                //debugger;
+                let mans = this.state.list.map( (man,index)=>{
+                    if (man.id === paramMan.id) { 
+                        return paramMan
+                    }
+                    else {
+                        return man;
+                    }
+                });
+                this.setState({
+                    list: mans 
+                })
             },
         }
         render() {
             return (
                 <div>
-                    <div>
-                        <h1>Creat Read Update Delete</h1>
-                        <div><label htmlFor="">Name : </label> <input type="text" /></div>
-                        <div><label htmlFor="">Power : </label> <input type="text" /></div> <button>Add</button>
-                        <hr />
-                    </div>
+                    <CrudInput></CrudInput> 
                     <CrudList {...this.state} {...this.func}>
                     </CrudList>
                 </div>
@@ -264,9 +318,14 @@
     //export default CrudList;
 
     class CrudListItem extends React.Component {
+        state = {
+            isEditMode : false
+        }
         constructor(props) {
             super(props);
             // this 바인딩
+            this.refUserName = React.createRef()
+            this.refUserPower = React.createRef()
     
         }
         doDel = (event) => { 
@@ -288,10 +347,27 @@
             console.log(event.target);
             // const item = this.props.man;
             // this.props.doEdit(item);
+            this.setState({
+                isEditMode: !this.state.isEditMode
+            })
         } 
+        doSave = (event) => { 
+            //debugger;
+            console.log(event.target);
+            this.setState({
+                isEditMode: !this.state.isEditMode
+            })
+            let item = this.props.man;
+            let man = {
+                id : item.id,
+                name : this.refUserName.current.value,
+                power : Number(this.refUserPower.current.value)
+            }
+            this.props.doEdit(man);
+        }
         render() {
             let item = this.props.man;
-            return (
+            const formView = (
                 <tr className="">
                     <td>{item.id}</td>
                     <td>{item.name}</td>
@@ -303,11 +379,59 @@
                         <button onClick={this.doEdit}>Edit</button>
                     </td>
                 </tr>
+            )
+
+            const formEdit = (
+                <tr key={item.id} className={"strong"}>
+                    <td>{item.id}</td>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            ref={this.refUserName }
+                            defaultValue={item.name}   //  for  htmlFor   value    defaultValue
+                        />
+                    </td>
+                    <td>
+                        <input 
+                            type="text" 
+                            name="power" 
+                            ref={this.refUserPower }
+                            defaultValue={item.power}
+                        />
+                    </td>
+                    <td>
+                        <button onClick={this.doUp}>Power Up</button>
+                        <button onClick={this.doDown}>Power Down</button>
+                        <button onClick={this.doSave}>Save</button>
+                    </td>
+                </tr> 
+            )
+            if(this.state.isEditMode) {
+                return formEdit;
+            } 
+            else {
+                return formView;
+            }
+            
+        }
+    }
+    //export default CrudListItem;
+
+    class CrudInput extends React.Component {
+        render() {
+            return (
+                <div>
+                    <h1>Creat Read Update Delete</h1>
+                    <div><label htmlFor="">Name : </label> <input type="text" /></div>
+                    <div><label htmlFor="">Power : </label> <input type="text" /></div> <button>Add</button>
+                    <hr />
+                </div>
             );
         }
     }
     
-    //export default CrudListItem;
+    //export default CrudInput;
 
     ReactDOM.render(<CrudApp></CrudApp>, document.getElementById("app"));
 
